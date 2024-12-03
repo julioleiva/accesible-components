@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Componentes Accesibles</title>
+  </head>
+  <body>
+    <h1>Componentes Accesibles</h1>
+    <div id="example-screen">
+      <accessible-button label="Botón de ejemplo"></accessible-button>
+      <accessible-input
+        label="Nombre:"
+        placeholder="Escribe tu nombre"
+      ></accessible-input>
+      <accessible-alert
+        type="success"
+        title="Título de la alerta"
+        message="Mensaje detallado"
+        icon="✓"
+        dismissible
+        auto-dismiss="5000"
+        live="polite"
+      ></accessible-alert>
+      <accessible-tab></accessible-tab>
+      <accessible-card
+        title="Select Plan"
+        content="Click to select"
+        interactive
+        selected
+      ></accessible-card>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
