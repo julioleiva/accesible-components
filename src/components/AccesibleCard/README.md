@@ -1,126 +1,222 @@
 # Card Component Documentation
 
 ## Overview
-A web component that creates accessible content cards with support for both static and interactive variants.
+`AccessibleCard` is a web component designed to create accessible, interactive, and customizable content cards. It supports ARIA roles, state management, and multiple layout options.
 
-## WCAG 2.1 AA Requirements
+## Accessibility Compliance
 
-### Perceivable (1.4.3, 1.4.8, 1.3.1)
-- Contrast ratios ≥ 4.5:1 for borders and text
-- Clear visual hierarchy and structure
-- Adaptable layout (vertical/horizontal)
-- States visually distinguishable
+### WCAG 2.1 AA Requirements
 
-### Operable (2.1.1, 2.5.5, 2.3.3)
-- Full keyboard support
-- Touch targets ≥ 44px
-- Smooth transitions
-- Reduced motion support
+#### Perceivable (1.4.3, 1.4.8, 1.3.1)
+- **Contrast Ratios**: Ensures a minimum of 4.5:1 for borders and text.
+- **Visual Hierarchy**: Titles and content maintain a clear hierarchy.
+- **Adaptable Layout**: Cards support both vertical and horizontal orientations.
+- **State Indications**: Visual cues for `selected`, `expanded`, and `disabled` states.
 
-### Understandable (3.1.5, 3.2.4)
-- Clear content structure
-- Consistent layout
-- Predictable behavior
+#### Operable (2.1.1, 2.5.5, 2.3.3)
+- Full keyboard navigation (`Tab`, `Enter`, `Space`).
+- Large touch targets (≥ 44px).
+- Motion-reduced animations.
 
-### Robust (4.1.2)
-- Semantic HTML structure
-- Appropriate ARIA roles
-- State management
+#### Understandable (3.1.5, 3.2.4)
+- Predictable interactions with consistent feedback.
+- Clear role and state visibility using ARIA attributes.
+
+#### Robust (4.1.2)
+- Semantic structure for better assistive technology compatibility.
+- State attributes like `aria-expanded`, `aria-selected`, and `aria-disabled`.
+
+---
 
 ## Component API
 
 ### Attributes
-| Attribute | Description | ARIA |
-|-----------|-------------|------|
-| title | Card heading | aria-labelledby |
-| content | Card content | - |
-| interactive | Enables interaction | role="button" |
-| expanded | Shows expansion | aria-expanded |
-| selected | Shows selection | aria-selected |
-| disabled | Disables interaction | aria-disabled |
-| orientation | Layout direction | aria-orientation |
+
+| Attribute      | Description                     | ARIA                   |
+|----------------|---------------------------------|-------------------------|
+| `title`        | Title of the card              | `aria-labelledby`      |
+| `content`      | Description or main content    | -                       |
+| `interactive`  | Enables interaction            | `role="button"`         |
+| `expanded`     | Indicates expansion            | `aria-expanded`         |
+| `selected`     | Indicates selection            | `aria-selected`         |
+| `disabled`     | Disables the card              | `aria-disabled`         |
+| `orientation`  | Layout direction (`vertical` or `horizontal`) | `aria-orientation` |
 
 ### Events
+
+| Event             | Details                                        |
+|--------------------|------------------------------------------------|
+| `card-interaction` | Fired when the card is clicked or activated.   |
+
+**Event Payload:**
 ```javascript
-'card-interaction': {
-  type: string,
+{
+  type: string, // Event type ('click', 'keydown', etc.)
   expanded: boolean,
   selected: boolean,
   timestamp: Date
 }
 ```
 
-### CSS Properties
-```css
---card-border-color: #ccc
---card-background: #ffffff
---card-color: #1f2937
---card-shadow: 0 1px 3px rgba(0, 0, 0, 0.1)
---card-hover-border-color: #2563eb
---card-selected-background: #eff6ff
+---
+
+## CSS Custom Properties
+
+| Property                      | Default Value                  | Description                            |
+|-------------------------------|---------------------------------|----------------------------------------|
+| `--card-border-color`         | `#ccc`                         | Border color of the card.              |
+| `--card-background`           | `#ffffff`                      | Background color of the card.          |
+| `--card-color`                | `#1f2937`                      | Text color.                            |
+| `--card-shadow`               | `0 1px 3px rgba(0, 0, 0, 0.1)` | Shadow applied to the card.            |
+| `--card-hover-border-color`   | `#2563eb`                      | Border color when hovered.             |
+| `--card-selected-background`  | `#eff6ff`                      | Background color when selected.        |
+| `--card-focus-color`          | `#2563eb`                      | Focus outline color.                   |
+
+---
+
+## Development
+
+### Component Structure
+The component uses semantic HTML and ARIA roles to ensure accessibility. The primary layout is controlled via CSS, supporting both horizontal and vertical orientations.
+
+### Lifecycle Hooks
+- **connectedCallback**: Initializes the component and event listeners.
+- **disconnectedCallback**: Cleans up event listeners.
+- **attributeChangedCallback**: Updates the card dynamically when attributes change.
+
+### Key Methods
+- **`setupEventListeners()`**: Adds interactivity with keyboard and mouse support.
+- **`handleInteraction()`**: Toggles states (`expanded`, `selected`) and emits custom events.
+
+### State Management
+Attributes like `expanded`, `selected`, and `disabled` control the card’s appearance and behavior. ARIA attributes reflect these states for assistive technologies.
+
+---
+
+## Testing
+
+### Automated Testing Checklist
+
+1. **Accessibility (axe-core):**
+   - [x] Validate ARIA roles and attributes.
+   - [x] Ensure keyboard interaction support.
+   - [x] Check contrast ratios.
+
+2. **State Management:**
+   - [x] Verify `expanded`, `selected`, and `disabled` states.
+   - [x] Test role changes when `interactive` is set.
+
+3. **Responsive Behavior:**
+   - [x] Validate layout for vertical and horizontal orientations.
+
+### Manual Testing Checklist
+
+- [ ] Test with screen readers.
+- [ ] Validate keyboard navigation.
+- [ ] Check touch interaction.
+- [ ] Confirm visual states for all scenarios.
+
+---
+
+## Stories
+
+### Default Card
+```javascript
+export const Default = {
+  args: {
+    title: 'Default Card Title',
+    content: 'This is the content of the card.',
+  },
+};
 ```
+
+### Interactive Card
+```javascript
+export const Interactive = {
+  args: {
+    title: 'Interactive Card',
+    content: 'Click or use keyboard navigation.',
+    interactive: true,
+  },
+};
+```
+
+### Expanded Card
+```javascript
+export const Expanded = {
+  args: {
+    title: 'Expandable Card',
+    content: 'This card is expanded.',
+    expanded: true,
+  },
+};
+```
+
+### Selected Card
+```javascript
+export const Selected = {
+  args: {
+    title: 'Selected Card',
+    content: 'This card is selected by default.',
+    selected: true,
+  },
+};
+```
+
+### Disabled Card
+```javascript
+export const Disabled = {
+  args: {
+    title: 'Disabled Card',
+    content: 'This card is disabled and cannot be interacted with.',
+    disabled: true,
+  },
+};
+```
+
+### Horizontal Orientation
+```javascript
+export const HorizontalOrientation = {
+  args: {
+    title: 'Horizontal Card',
+    content: 'This card is displayed horizontally.',
+    orientation: 'horizontal',
+  },
+};
+```
+
+---
 
 ## Usage Examples
 
 ### Basic Card
 ```html
 <accessible-card
-  title="Product Info"
-  content="Description here"
+  title="Card Title"
+  content="Card content goes here."
 ></accessible-card>
 ```
 
 ### Interactive Card
 ```html
 <accessible-card
-  title="Select Plan"
-  content="Click to select"
+  title="Interactive Card"
+  content="Click to select."
   interactive
-  selected
 ></accessible-card>
 ```
 
-### Disabled Card
-```html
-<accessible-card
-  title="Unavailable"
-  content="Option disabled"
-  interactive
-  disabled
-></accessible-card>
-```
-
-## Test Checklist
-
-### Automated
-- [ ] WCAG compliance (axe-core)
-- [ ] Color contrast
-- [ ] ARIA attributes
-- [ ] Keyboard interaction
-- [ ] Event handling
-
-### Manual
-- [ ] Screen reader testing
-- [ ] Keyboard navigation
-- [ ] Touch interaction
-- [ ] Visual states
-- [ ] Responsive behavior
-
-## Best Practices
-1. Always provide a meaningful title
-2. Keep content concise
-3. Use interactive mode only when needed
-4. Ensure consistent styling
-5. Test with keyboard and screen readers
+---
 
 ## Browser Support
-- Modern browsers
-- High contrast mode
-- Forced colors mode
-- Reduced motion
 
+- Modern Browsers: Chrome, Firefox, Edge, Safari.
+- High Contrast Mode.
+- Reduced Motion Preferences.
+
+---
 
 ## Resources
+- [ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/)
 - [WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
-- [ARIA Groups Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/group/)
-- [Inclusive Components: Cards](https://inclusive-components.design/cards/)
+- [Inclusive Components](https://inclusive-components.design/)

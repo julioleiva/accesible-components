@@ -93,6 +93,16 @@ describe('AccessibleTabs Component', () => {
       await waitForFrame();
       expect(tabsElement.shadowRoot.activeElement).toBe(tab);
     });
+
+    it('updates aria-label dynamically', async () => {
+      const tablist = queryShadowRoot(tabsElement, '[role="tablist"]');
+      expect(tablist.getAttribute('aria-label')).toBe('Tabs');
+
+      tabsElement.setAttribute('aria-label', 'Updated Tabs');
+      await waitForFrame();
+
+      expect(tablist.getAttribute('aria-label')).toBe('Updated Tabs');
+    });
   });
 
   describe('Interaction', () => {
@@ -134,20 +144,35 @@ describe('AccessibleTabs Component', () => {
     });
 
     it('emits tab-change event on tab switch', async () => {
-      let eventFired = false;
-      let eventDetail = null;
+      const mockHandler = vi.fn();
 
-      tabsElement.addEventListener('tab-change', (e) => {
-        eventFired = true;
-        eventDetail = e.detail;
-      });
+      tabsElement.addEventListener('tab-change', mockHandler);
 
       const tabs = queryShadowRootAll(tabsElement, '[role="tab"]');
       tabs[1].click();
       await waitForFrame();
 
-      expect(eventFired).toBe(true);
+      expect(mockHandler).toHaveBeenCalled();
+      const eventDetail = mockHandler.mock.calls[0][0].detail;
       expect(eventDetail.tabId).toBe(tabs[1].getAttribute('aria-controls'));
+    });
+  });
+
+  describe('Dynamic Behavior', () => {
+
+    it('handles empty or invalid children gracefully', async () => {
+      document.body.innerHTML = '';
+      const invalidTabsElement = document.createElement('accessible-tabs');
+      document.body.appendChild(invalidTabsElement);
+      await waitForFrame();
+
+      const tablist = queryShadowRoot(invalidTabsElement, '[role="tablist"]');
+      expect(tablist).toBeTruthy();
+
+      const tabs = queryShadowRootAll(invalidTabsElement, '[role="tab"]');
+      const panels = queryShadowRootAll(invalidTabsElement, '[role="tabpanel"]');
+      expect(tabs.length).toBe(0);
+      expect(panels.length).toBe(0);
     });
   });
 
@@ -176,12 +201,14 @@ describe('AccessibleTabs Component', () => {
   });
 
   describe('Cleanup', () => {
-    it('removes event listeners on disconnect', () => {
+    it('removes all event listeners on disconnect', () => {
       const tablist = queryShadowRoot(tabsElement, '[role="tablist"]');
-      const spy = vi.spyOn(tablist, 'removeEventListener');
+      const spyKeydown = vi.spyOn(tablist, 'removeEventListener');
 
       tabsElement.remove();
-      expect(spy).toHaveBeenCalledWith('keydown', expect.any(Function));
+
+      expect(spyKeydown).toHaveBeenCalledWith('keydown', expect.any(Function));
+      expect(spyKeydown).toHaveBeenCalledTimes(1);
     });
   });
 });

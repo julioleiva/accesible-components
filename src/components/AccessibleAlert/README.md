@@ -1,155 +1,172 @@
 # Alert Component Accessibility Documentation
 
 ## Overview
-The AccessibleAlert component is a web component that provides an accessible way to show alert messages to users. This document outlines the accessibility requirements and implementation details.
 
-## WCAG 2.1 AA Compliance Requirements
+The `AccessibleAlert` component is a web component for displaying accessible alert messages, adhering to ARIA roles and WCAG 2.1 AA requirements. It supports various alert types, auto-dismiss behavior, and is fully customizable.
 
-### Perceivable
-* **Color and Contrast (1.4.3)**
-  - Alert colors must maintain a minimum contrast ratio of 4.5:1
-  - Border colors should have sufficient contrast with backgrounds
-  - Text must be readable in all alert variants (info, success, warning, error)
+---
 
-* **Visual Presentation (1.4.8)**
-  - Clear visual hierarchy through typography and spacing
-  - Icons should be optional and decorative (aria-hidden="true")
-  - Text must be resizable without breaking layout
+## Accessibility Compliance
 
-* **Adaptable Content (1.3.1)**
-  - Structure must be preserved when stylesheets are disabled
-  - Information must not rely solely on color
-  - Icons must have text alternatives
+### WCAG 2.1 AA Requirements
 
-### Operable
-* **Keyboard Navigation (2.1.1)**
-  - Dismissible alerts must be keyboard-accessible
-  - Focus must be manageable when alerts appear/disappear
-  - Clear visual focus indicators required
+#### **Perceivable (1.4.3, 1.4.8, 1.3.1)**
+- **Contrast:** Minimum 4.5:1 for text and borders.
+- **Icons:** Optional and decorative (`aria-hidden="true"`).
+- **Responsive Text:** Adaptable to font scaling.
 
-* **Timing (2.2.1)**
-  - Auto-dismissible alerts must:
-    * Provide sufficient time to read content
-    * Allow time extension or manual dismissal
-    * Respect reduced motion preferences
+#### **Operable (2.1.1, 2.2.1, 2.3.3)**
+- **Keyboard Navigation:** Fully keyboard accessible with focus indicators.
+- **Timing Control:** Auto-dismiss alerts allow sufficient reading time.
+- **Motion Respect:** Animations respect reduced-motion settings.
 
-* **Motion and Animation (2.3.3)**
-  - Animations must respect prefers-reduced-motion
-  - No flashing content or rapid transitions
-  - Smooth transitions for appearance/disappearance
+#### **Understandable (3.1.5, 3.2.4)**
+- **Concise Messaging:** Clear, actionable text.
+- **Consistent Behavior:** Dismissible alerts and icons follow a predictable pattern.
 
-### Understandable
-* **Reading Level (3.1.5)**
-  - Alert messages should be clear and concise
-  - Technical terms should be avoided or explained
-  - Error messages should suggest corrections
+#### **Robust (4.1.2)**
+- **ARIA Roles:**
+  - `role="alert"` for standard alerts.
+  - `role="alertdialog"` for high-priority interruptions.
+- **Live Regions:**
+  - `aria-live="polite"` for non-critical updates.
+  - `aria-live="assertive"` for critical updates.
 
-* **Consistent Presentation (3.2.4)**
-  - Alert types should have consistent styling
-  - Dismiss buttons should be consistently positioned
-  - Icons should follow a consistent pattern
-
-### Robust
-* **Compatibility (4.1.2)**
-  - ARIA roles and attributes:
-    * `role="alert"` for passive notifications
-    * `role="alertdialog"` for important interruptions
-    * `aria-live` appropriate to urgency level
-    * `aria-atomic="true"` for complete message reading
+---
 
 ## Component API
 
 ### Attributes
-| Attribute | Description | ARIA Impact |
-|-----------|-------------|-------------|
-| type | Alert variant (info/success/warning/error) | Affects aria-role selection |
-| message | Alert content | Main readable content |
-| title | Optional header text | Improves content structure |
-| dismissible | Enables close button | Requires keyboard interaction |
-| auto-dismiss | Auto-close duration | Affects timing adaptation |
-| live | ARIA live level (polite/assertive) | Controls interruption level |
+
+| Attribute      | Description                        | ARIA Impact             |
+|----------------|------------------------------------|-------------------------|
+| `type`         | Alert type (`info`, `success`, etc.) | Defines role and style  |
+| `message`      | Main content of the alert         | Readable content         |
+| `title`        | Optional title for the alert      | Improves structure       |
+| `dismissible`  | Adds a close button               | Requires keyboard support|
+| `auto-dismiss` | Auto-dismiss after a timeout (ms) | Timing-related behavior  |
+| `live`         | ARIA live region mode             | Polite or assertive      |
+| `icon`         | Custom icon for the alert         | Decorative or contextual |
+
+---
 
 ### States
-| State | Visual Indicator | Accessibility Feature |
-|-------|-----------------|----------------------|
-| Default | Base styling | aria-role="alert" |
-| Dismissible | Close button | Keyboard focusable |
-| Auto-dismissing | Progress indicator | Timing adjustable |
-| Error | High contrast colors | Role="alertdialog" |
 
-## Testing Requirements
+| State            | Visual Indicator             | Accessibility Feature          |
+|-------------------|------------------------------|---------------------------------|
+| Default           | Base styling                | `role="alert"`                 |
+| Dismissible       | Close button visible        | Keyboard focusable             |
+| Auto-dismissing   | Time-limited visibility     | Timing adjustable              |
+| Error             | High contrast styling       | `role="alertdialog"`           |
 
-### Automated Tests
-- [x] axe-core validation for WCAG compliance
-- [x] Color contrast verification
-- [x] ARIA attributes presence and correctness
-- [x] Keyboard event handling
-- [x] Focus management verification
+---
 
-### Manual Testing
-- [ ] Screen reader user flow testing
-- [ ] Keyboard-only navigation testing
-- [ ] High contrast mode verification
-- [ ] Reduced motion compatibility
-- [ ] Multi-language support validation
+## Component Features
 
-### Test Scenarios
-1. **Basic Functionality**
-   - Alert renders with correct ARIA attributes
-   - Message is properly announced by screen readers
-   - Visual presentation matches accessibility requirements
+### Dismissible Alerts
+Alerts marked with the `dismissible` attribute include a close button that supports:
+- **Keyboard Interaction:** Close with `Enter` or `Space`.
+- **ARIA Labels:** Button has a meaningful label for screen readers.
 
-2. **Keyboard Interaction**
-   - Tab navigation works correctly
-   - Enter/Space triggers dismiss
-   - Focus handling on dismiss
+### Auto-Dismiss
+Alerts with the `auto-dismiss` attribute:
+- Automatically close after the specified duration.
+- Can update or clear dismissal timers dynamically.
 
-3. **Screen Reader Compatibility**
-   - Content is announced appropriately
-   - Live regions work as expected
-   - Dismissal is properly communicated
+### Alert Types
+Supported alert types include `info`, `success`, `warning`, and `error`, each with distinct styling.
 
-4. **Visual Adaptability**
-   - High contrast mode rendering
-   - Dark mode compatibility
-   - Font scaling support
-   - Reduced motion compliance
+---
 
-## Usage Guidelines
+## Usage Examples
 
-### Best Practices
+### Basic Alert
 ```html
-<!-- Recommended: Basic informative alert -->
 <accessible-alert
   type="info"
-  message="Your settings have been saved"
-  live="polite"
+  message="This is an informational alert."
 ></accessible-alert>
+```
 
-<!-- Recommended: Important error alert -->
+### Dismissible Alert
+```html
 <accessible-alert
-  type="error"
-  title="Connection Error"
-  message="Please check your internet connection"
-  live="assertive"
+  type="warning"
+  title="Warning"
+  message="This is a dismissible warning alert."
   dismissible
 ></accessible-alert>
 ```
 
-### Anti-patterns
+### Auto-Dismiss Alert
 ```html
-<!-- Avoid: Missing essential attributes -->
-<accessible-alert></accessible-alert>
-
-<!-- Avoid: Inappropriate live region -->
 <accessible-alert
-  type="info"
-  live="assertive"
-  message="Minor update"
+  type="success"
+  message="This alert will auto-dismiss in 3 seconds."
+  auto-dismiss="3000"
 ></accessible-alert>
 ```
+
+### Assertive Alert
+```html
+<accessible-alert
+  type="error"
+  message="This requires immediate attention!"
+  live="assertive"
+></accessible-alert>
+```
+
+### Alert with Custom Icon
+```html
+<accessible-alert
+  type="info"
+  message="This is an alert with a custom icon."
+  icon="🚀"
+></accessible-alert>
+```
+
+---
+
+## Testing Requirements
+
+### Automated Testing
+- **WCAG Compliance:** Use axe-core to verify ARIA roles and contrast ratios.
+- **Keyboard Navigation:** Ensure dismissible alerts respond to `Tab`, `Enter`, and `Space`.
+- **Focus Management:** Verify focus behavior when alerts appear/disappear.
+
+### Manual Testing
+- **Screen Reader:** Ensure announcements match `aria-live` behavior.
+- **High Contrast Mode:** Verify correct rendering in high-contrast settings.
+- **Reduced Motion:** Test animations with motion preferences enabled/disabled.
+
+### Test Scenarios
+
+1. **Basic Functionality**
+   - Render alert with default attributes.
+   - Verify ARIA roles and live region behavior.
+
+2. **Dismissible Alerts**
+   - Close using mouse and keyboard.
+   - Confirm `alert-dismiss` event is emitted.
+
+3. **Auto-Dismiss Behavior**
+   - Verify correct timing for auto-dismiss.
+   - Ensure no conflicts when `auto-dismiss` changes dynamically.
+
+4. **Customizations**
+   - Validate icon rendering.
+   - Test color and contrast for all alert types.
+
+---
+
+## Browser Support
+
+- **Modern Browsers:** Chrome, Firefox, Safari, Edge.
+- **Accessibility Modes:** High contrast, reduced motion, and dark mode.
+
+---
 
 ## Resources
 - [WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
 - [ARIA Alerts Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/alert/)
-- [Inclusive Components: Alert](https://inclusive-components.design/)
+- [Inclusive Components: Alerts](https://inclusive-components.design/notifications/)
