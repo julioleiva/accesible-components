@@ -7,4 +7,16 @@ export default defineConfig({
     environment: 'happy-dom'
 
   },
+
+  build: {
+    lib: {
+      entry: 'src/components/index.js',
+      formats: ['es']
+    }
+  },
+  resolve: {
+    alias: {
+      '@': '/src'
+    }
+  }
 });
