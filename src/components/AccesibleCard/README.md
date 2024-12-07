@@ -1,6 +1,7 @@
 # Card Component Documentation
 
 ## Overview
+
 `AccessibleCard` is a web component designed to create accessible, interactive, and customizable content cards. It supports ARIA roles, state management, and multiple layout options.
 
 ## Accessibility Compliance
@@ -8,21 +9,25 @@
 ### WCAG 2.1 AA Requirements
 
 #### Perceivable (1.4.3, 1.4.8, 1.3.1)
+
 - **Contrast Ratios**: Ensures a minimum of 4.5:1 for borders and text.
 - **Visual Hierarchy**: Titles and content maintain a clear hierarchy.
 - **Adaptable Layout**: Cards support both vertical and horizontal orientations.
 - **State Indications**: Visual cues for `selected`, `expanded`, and `disabled` states.
 
 #### Operable (2.1.1, 2.5.5, 2.3.3)
+
 - Full keyboard navigation (`Tab`, `Enter`, `Space`).
 - Large touch targets (≥ 44px).
 - Motion-reduced animations.
 
 #### Understandable (3.1.5, 3.2.4)
+
 - Predictable interactions with consistent feedback.
 - Clear role and state visibility using ARIA attributes.
 
 #### Robust (4.1.2)
+
 - Semantic structure for better assistive technology compatibility.
 - State attributes like `aria-expanded`, `aria-selected`, and `aria-disabled`.
 
@@ -49,6 +54,7 @@
 | `card-interaction` | Fired when the card is clicked or activated.   |
 
 **Event Payload:**
+
 ```javascript
 {
   type: string, // Event type ('click', 'keydown', etc.)
@@ -77,18 +83,22 @@
 ## Development
 
 ### Component Structure
+
 The component uses semantic HTML and ARIA roles to ensure accessibility. The primary layout is controlled via CSS, supporting both horizontal and vertical orientations.
 
 ### Lifecycle Hooks
+
 - **connectedCallback**: Initializes the component and event listeners.
 - **disconnectedCallback**: Cleans up event listeners.
 - **attributeChangedCallback**: Updates the card dynamically when attributes change.
 
 ### Key Methods
+
 - **`setupEventListeners()`**: Adds interactivity with keyboard and mouse support.
 - **`handleInteraction()`**: Toggles states (`expanded`, `selected`) and emits custom events.
 
 ### State Management
+
 Attributes like `expanded`, `selected`, and `disabled` control the card’s appearance and behavior. ARIA attributes reflect these states for assistive technologies.
 
 ---
@@ -121,6 +131,7 @@ Attributes like `expanded`, `selected`, and `disabled` control the card’s appe
 ## Stories
 
 ### Default Card
+
 ```javascript
 export const Default = {
   args: {
@@ -131,6 +142,7 @@ export const Default = {
 ```
 
 ### Interactive Card
+
 ```javascript
 export const Interactive = {
   args: {
@@ -142,6 +154,7 @@ export const Interactive = {
 ```
 
 ### Expanded Card
+
 ```javascript
 export const Expanded = {
   args: {
@@ -153,6 +166,7 @@ export const Expanded = {
 ```
 
 ### Selected Card
+
 ```javascript
 export const Selected = {
   args: {
@@ -164,6 +178,7 @@ export const Selected = {
 ```
 
 ### Disabled Card
+
 ```javascript
 export const Disabled = {
   args: {
@@ -175,6 +190,7 @@ export const Disabled = {
 ```
 
 ### Horizontal Orientation
+
 ```javascript
 export const HorizontalOrientation = {
   args: {
@@ -190,6 +206,7 @@ export const HorizontalOrientation = {
 ## Usage Examples
 
 ### Basic Card
+
 ```html
 <accessible-card
   title="Card Title"
@@ -198,6 +215,7 @@ export const HorizontalOrientation = {
 ```
 
 ### Interactive Card
+
 ```html
 <accessible-card
   title="Interactive Card"
@@ -217,6 +235,7 @@ export const HorizontalOrientation = {
 ---
 
 ## Resources
+
 - [ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/)
 - [WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
 - [Inclusive Components](https://inclusive-components.design/)
