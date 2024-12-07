@@ -10,19 +10,18 @@ Achieving accessibility is a team effort involving multiple roles across the dev
 
 - **Business Analyst (BA)**: Defines accessibility requirements based on legal standards and business needs.
 - **Design and UX**: Ensures the interface design adheres to accessibility guidelines, including color contrast, text sizing, and keyboard navigability.
-- **Development (Web and Mobile)**: 
+- **Development (Web and Mobile)**:
   - Implements semantic HTML, ARIA roles, and CSS that support accessibility.
   - Includes linting tools and automated accessibility testing (e.g., axe-core) as part of the CI/CD pipeline.
   - Performs unit testing to validate accessible functionality, such as keyboard interactions and ARIA properties.
 - **Quality Assurance (QA)**: Conducts manual and automated testing to ensure compliance with accessibility standards across devices and scenarios.
 
----
-
-# The Accessibility Hexagon
+## The Accessibility Hexagon
 
 A visual representation of the interconnected elements necessary for achieving comprehensive accessibility in digital products:
 
 ## 1. **Semantic HTML**
+
 - Proper use of HTML elements.
 - Examples:
   - `<button>` instead of clickable `<div>`.
@@ -30,6 +29,7 @@ A visual representation of the interconnected elements necessary for achieving c
 - Avoid misuse of ARIA roles where native HTML can suffice.
 
 ## 2. **CSS**
+
 - Design with accessibility in mind.
 - Key considerations:
   - Use relative units (e.g., `em`, `%`) for responsive scaling.
@@ -37,6 +37,7 @@ A visual representation of the interconnected elements necessary for achieving c
   - Avoid relying solely on color for information (e.g., use text labels).
 
 ## 3. **Logic**
+
 - Accessibility integrated into application behavior.
 - Examples:
   - Keyboard focus management (e.g., modals trapping focus).
@@ -44,6 +45,7 @@ A visual representation of the interconnected elements necessary for achieving c
   - Accessible dynamic content updates using ARIA live regions.
 
 ## 4. **Unit Testing**
+
 - Validate accessibility functionality programmatically.
 - Test cases:
   - Keyboard operability.
@@ -51,6 +53,7 @@ A visual representation of the interconnected elements necessary for achieving c
   - Logical focus order and visibility of focus indicators.
 
 ## 5. **Automation (axe-core or similar)**
+
 - Automated tools for initial accessibility validation.
 - Example tools:
   - axe-core
@@ -61,6 +64,7 @@ A visual representation of the interconnected elements necessary for achieving c
   - Detection of non-semantic interactive elements.
 
 ## 6. **Manual Testing**
+
 - Human verification of accessibility nuances.
 - Steps:
   - Use screen readers (e.g., NVDA, VoiceOver) to validate compatibility.
@@ -68,7 +72,6 @@ A visual representation of the interconnected elements necessary for achieving c
   - Validate cross-device keyboard and assistive technology support.
 
 The hexagon provides a structured framework for building accessible digital experiences. Each layer reinforces the next, ensuring a robust, inclusive design and development process.
-
 
 The process of ensuring accessibility involves several interconnected layers, each contributing to a robust and inclusive user experience. These layers can be visualized as a **hexagon**:
 
@@ -115,17 +118,21 @@ Accessible design isn't limited to desktop browsers. It must adapt to a wide ran
 Failing to meet accessibility standards can have serious repercussions, both legally and socially:
 
 ### 1. **Legal Penalties**
+
 - Accessibility is mandated by laws like the European Accessibility Act (2025) and the Americans with Disabilities Act (ADA).
 - Non-compliance can result in lawsuits, fines, and damage to a company’s reputation.
 
 ### 2. **User Exclusion**
+
 - Over 1 billion people globally live with some form of disability.
 - Inaccessible websites and apps exclude a significant portion of potential users, reducing market reach.
 
 ### 3. **Brand Impact**
+
 - Companies seen as inaccessible risk damaging their brand’s image and losing customer trust.
 
 ### 4. **Technical Debt**
+
 - Fixing accessibility issues late in the development process is costly and time-consuming.
 - Building accessibility from the start is more efficient and sustainable.
 
@@ -139,6 +146,4 @@ Failing to meet accessibility standards can have serious repercussions, both leg
 4. **Collaborate Holistically**: Accessibility is a team effort; every role plays a part in ensuring compliance.
 5. **Think Beyond Compliance**: Accessibility isn’t just about meeting legal standards—it’s about creating an inclusive digital experience for everyone.
 
-By making accessibility a core part of the development process and leveraging tools like unit tests, automated checks, and manual expertise, we can ensure our products are inclusive, compliant, and ready for the future.
-
-
+By making accessibility a core part of the development process and leveraging tools like unit tests, automated checks, and manual expertise, we can ensure our products are inclusive, compliant, and ready for the future

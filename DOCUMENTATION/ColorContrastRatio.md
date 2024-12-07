@@ -6,9 +6,10 @@ The color contrast ratio measures the relative luminance of the lightest color c
 
 ## What Does a 4.5:1 Ratio Mean?
 
-A contrast ratio of 4.5:1 means the lighter color is 4.5 times brighter than the darker color. 
+A contrast ratio of 4.5:1 means the lighter color is 4.5 times brighter than the darker color.
 
 For example:
+
 - If the text is darker than the background, the background is 4.5 times brighter than the text.
 - If the text is lighter than the background, the text is 4.5 times brighter than the background.
 
@@ -26,11 +27,13 @@ For example:
 
 The WCAG defines two levels of compliance for color contrast:
 
-### Level AA (Most Commonly Required):
+### Level AA (Most Commonly Required)
+
 - Minimum contrast ratio of **4.5:1** for normal text.
 - Minimum contrast ratio of **3:1** for large text (18pt or 14pt bold).
 
-### Level AAA (Strictest Level):
+### Level AAA (Strictest Level)
+
 - Minimum contrast ratio of **7:1** for normal text.
 - Minimum contrast ratio of **4.5:1** for large text.
 
@@ -78,11 +81,10 @@ The WCAG defines two levels of compliance for color contrast:
 
 By understanding and applying the color contrast ratio, we can create accessible and user-friendly designs that meet both legal requirements and user expectations.
 
----
-
-# Examples of WCAG Compliance in Design
+## Examples of WCAG Compliance in Design
 
 ## 1. **Color Contrast**
+
 **WCAG Requirement:** Minimum contrast ratio of 4.5:1 for normal text (Level AA).
 
 - **Example of Compliance:**
@@ -95,6 +97,7 @@ By understanding and applying the color contrast ratio, we can create accessible
 ---
 
 ## 2. **Text Alternatives for Images**
+
 **WCAG Requirement:** Provide meaningful alt text for all non-decorative images.
 
 - **Example of Compliance:**
@@ -107,6 +110,7 @@ By understanding and applying the color contrast ratio, we can create accessible
 ---
 
 ## 3. **Keyboard Navigation**
+
 **WCAG Requirement:** Ensure all functionality is accessible via a keyboard.
 
 - **Example of Compliance:**
@@ -119,6 +123,7 @@ By understanding and applying the color contrast ratio, we can create accessible
 ---
 
 ## 4. **Focus Indicators**
+
 **WCAG Requirement:** Visible focus indicators must be present for interactive elements.
 
 - **Example of Compliance:**
@@ -130,6 +135,7 @@ By understanding and applying the color contrast ratio, we can create accessible
 ---
 
 ## 5. **Resize Text**
+
 **WCAG Requirement:** Text must be resizable up to 200% without loss of content or functionality.
 
 - **Example of Compliance:**
@@ -141,6 +147,7 @@ By understanding and applying the color contrast ratio, we can create accessible
 ---
 
 ## 6. **Responsive and Mobile Design**
+
 **WCAG Requirement:** Content must work in various screen orientations and sizes.
 
 - **Example of Compliance:**
@@ -152,6 +159,7 @@ By understanding and applying the color contrast ratio, we can create accessible
 ---
 
 ## 7. **Non-Text Contrast**
+
 **WCAG Requirement:** Visual elements like buttons and icons must have a contrast ratio of at least 3:1 against the background.
 
 - **Example of Compliance:**
@@ -160,12 +168,12 @@ By understanding and applying the color contrast ratio, we can create accessible
 - **Non-Compliance Example:**
   - A pale gray icon on a light gray background with a contrast ratio of only 1.5:1.
 
----
-
 ## 8. **Forms and Error Messages**
+
 **WCAG Requirement:** Labels must clearly describe form inputs, and errors should be identified programmatically.
 
 - **Example of Compliance:**
+
   ```html
   <label for="email">Email:</label>
   <input type="email" id="email" name="email">
