@@ -1,35 +1,91 @@
 <!DOCTYPE html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Componentes Accesibles</title>
-  </head>
-  <body>
-    <h1>Componentes Accesibles</h1>
-    <div id="example-screen">
-      <accessible-button label="Botón de ejemplo"></accessible-button>
-      <accessible-input
-        label="Nombre:"
-        placeholder="Escribe tu nombre"
-      ></accessible-input>
-      <accessible-alert
-        type="success"
-        title="Título de la alerta"
-        message="Mensaje detallado"
-        icon="✓"
-        dismissible
-        auto-dismiss="5000"
-        live="polite"
-      ></accessible-alert>
-      <accessible-tab></accessible-tab>
-      <accessible-card
-        title="Select Plan"
-        content="Click to select"
-        interactive
-        selected
-      ></accessible-card>
-    </div>
-    <script type="module" src="/src/main.js"></script>
-  </body>
+<html lang="en" class="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accessible Components</title>
+  <style>
+    :root {
+      --bg-color: #ffffff;
+      --text-color: #000000;
+      --link-color: #1a0dab;
+      --header-bg-color: #f0f0f0;
+    }
+
+    .dark {
+      --bg-color: #181818;
+      --text-color: #ffffff;
+      --link-color: #4a90e2;
+      --header-bg-color: #282828;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+    }
+
+    header {
+      background-color: var(--header-bg-color);
+      padding: 1rem;
+    }
+
+    h1 {
+      margin: 0;
+    }
+
+    a {
+      color: var(--link-color);
+    }
+
+    button {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      border: 1px solid var(--text-color);
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      cursor: pointer;
+      margin: 1rem;
+    }
+
+    button:focus {
+      outline: 2px solid var(--link-color);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Accessible Components</h1>
+    <button id="theme-toggle">Switch to Dark Theme</button>
+  </header>
+  <main role="main">
+    <section role="region" aria-labelledby="example-screen-title">
+      <h2 id="example-screen-title">Switch example</h2>
+      <div id="example-screen">
+        <accesible-switch></accesible-switch>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2024 Web Accessibility</p>
+  </footer>
+  <script type="module">
+    const themeToggle = document.getElementById('theme-toggle');
+    const htmlElement = document.documentElement;
+
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    htmlElement.className = currentTheme;
+    themeToggle.textContent = currentTheme === 'light' ? 'Switch to Dark Theme' : 'Switch to Light Theme';
+
+    themeToggle.addEventListener('click', () => {
+      const isDark = htmlElement.classList.contains('dark');
+      htmlElement.className = isDark ? 'light' : 'dark';
+      themeToggle.textContent = isDark ? 'Switch to Dark Theme' : 'Switch to Light Theme';
+
+      localStorage.setItem('theme', isDark ? 'light' : 'dark');
+    });
+  </script>
+  <script src="./src/main.js" type="module"></script>
+</body>
 </html>

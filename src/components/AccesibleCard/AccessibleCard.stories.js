@@ -1,10 +1,14 @@
 import { defineAccessibleCard } from './AccessibleCard';
 
+// register the ‘accessible-card’ component as a custom element.
 defineAccessibleCard();
 
 export default {
   title: 'Components/AccessibleCard',
+
   tags: ['autodocs'],
+
+  // We define the controls for the component's properties. These will be used in the Storybook controls panel.
   argTypes: {
     title: { control: 'text', description: 'Title of the card.' },
     content: { control: 'text', description: 'Content of the card.' },
@@ -13,11 +17,12 @@ export default {
     selected: { control: 'boolean', description: 'Whether the card is selected.' },
     disabled: { control: 'boolean', description: 'Whether the card is disabled.' },
     orientation: {
-      control: 'select',
-      options: ['vertical', 'horizontal'],
+      control: 'select', // Ofrecemos un selector de opciones.
+      options: ['vertical', 'horizontal'], // Opciones disponibles para la orientación.
       description: 'Orientation of the card (vertical or horizontal).',
     },
   },
+
   parameters: {
     docs: {
       description: {
@@ -25,16 +30,19 @@ export default {
       },
     },
     a11y: {
-      element: 'accessible-card',
+      element: 'accessible-card', // Defines the element to be evaluated for accessibility.
     },
   },
 };
+
+// Defines the variants (stories) of the component.
 
 export const Default = {
   args: {
     title: 'Default Card Title',
     content: 'This is the content of the card.',
   },
+  // render the HTML component dynamically from the arguments.
   render: (args) => `
     <accessible-card 
       ${Object.entries(args).map(([key, value]) => `${key}="${value}"`).join(' ')}
@@ -43,11 +51,12 @@ export const Default = {
   parameters: {
     docs: {
       description: {
-        story: 'This is the default state of the AccessibleCard component.',
+        story: 'This is the default state of the AccessibleCard component.', // Descripción de esta historia específica.
       },
     },
   },
 };
+
 
 export const Interactive = {
   args: {
@@ -69,6 +78,7 @@ export const Interactive = {
   },
 };
 
+
 export const Expanded = {
   args: {
     title: 'Expandable Card',
@@ -84,16 +94,17 @@ export const Expanded = {
   parameters: {
     docs: {
       description: {
-        story: 'Demonstrates a card that supports the `expanded` state with ARIA attributes.',
+        story: 'Demonstrates a card that supports the `expanded` state with ARIA attributes.', // Explicación de la expansión.
       },
     },
   },
 };
 
+
 export const Selected = {
   args: {
     title: 'Selected Card',
-    content: 'This card is selected by default.',
+    content: 'This card is selected by default.', 
     selected: true,
     interactive: true,
   },
@@ -146,7 +157,7 @@ export const HorizontalOrientation = {
     docs: {
       description: {
         story: 'Displays the card in horizontal orientation.',
-      },
+      }
     },
   },
 };
@@ -154,9 +165,9 @@ export const HorizontalOrientation = {
 export const CombinedStates = {
   args: {
     title: 'Combined States Card',
-    content: 'This card is interactive, expanded, and selected.',
+    content: 'This card is interactive, expanded, and selected.', 
     interactive: true,
-    expanded: true,
+    expanded: true, 
     selected: true,
   },
   render: (args) => `
@@ -167,7 +178,7 @@ export const CombinedStates = {
   parameters: {
     docs: {
       description: {
-        story: 'Demonstrates a card with combined states (interactive, expanded, and selected).',
+        story: 'Demonstrates a card with combined states (interactive, expanded, and selected).', // Explicación de la combinación de estados.
       },
     },
   },

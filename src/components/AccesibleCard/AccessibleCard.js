@@ -1,48 +1,55 @@
 export class AccessibleCard extends HTMLElement {
+  // Specify attributes to observe for changes
   static get observedAttributes() {
     return [
-      'title',
-      'content',
-      'interactive',
-      'expanded',
-      'selected',
-      'disabled',
-      'orientation'
+      'title',       
+      'content',    
+      'interactive', // Determines if the card is interactive (clickable, focusable)
+      'expanded',    // ARIA expanded state
+      'selected',    // ARIA selected state
+      'disabled',   
+      'orientation'  // Orientation of the card: 'horizontal' or 'vertical'
     ];
   }
 
   constructor() {
     super();
+    // Attach a Shadow DOM to the element for encapsulated styling
     this.attachShadow({ mode: 'open' });
+    // Generate a unique ID for ARIA attributes
     this._uniqueId = Math.random().toString(36).substr(2, 9);
   }
 
+  // Called when the element is added to the DOM
   connectedCallback() {
-    this.render();
-    this.setupEventListeners();
+    this.render(); // Render the card's structure
+    this.setupEventListeners(); // Add event listeners for interactivity
   }
 
+  // Called when the element is removed from the DOM
   disconnectedCallback() {
-    this.removeEventListeners();
+    this.removeEventListeners(); // Clean up event listeners
   }
 
+  // Triggered when an observed attribute changes
   attributeChangedCallback(name, oldValue, newValue) {
     if (oldValue !== newValue) {
-      this.render();
-      this.setupEventListeners();
+      this.render(); // Re-render the card to reflect changes
+      this.setupEventListeners(); // Re-setup event listeners for new state
     }
   }
 
+  // Add event listeners for interactivity (click, keydown, touchend)
   setupEventListeners() {
     if (this.isInteractive()) {
       const card = this.shadowRoot.querySelector('.card');
       card.addEventListener('click', this.handleClick.bind(this));
       card.addEventListener('keydown', this.handleKeydown.bind(this));
-      // Para dispositivos táctiles
-      card.addEventListener('touchend', this.handleClick.bind(this));
+      card.addEventListener('touchend', this.handleClick.bind(this)); // Touch support
     }
   }
 
+  // Remove previously added event listeners
   removeEventListeners() {
     const card = this.shadowRoot.querySelector('.card');
     if (card) {
@@ -52,56 +59,62 @@ export class AccessibleCard extends HTMLElement {
     }
   }
 
+  // Handle click events
   handleClick(event) {
-    if (!this.hasAttribute('disabled')) {
+    if (!this.hasAttribute('disabled')) { // Skip if the card is disabled
       event.preventDefault();
-      this.handleInteraction(event);
+      this.handleInteraction(event); // Handle interaction logic
     }
   }
 
+  // Handle keydown events for Enter and Space keys
   handleKeydown(event) {
     if (!this.hasAttribute('disabled') && (event.key === 'Enter' || event.key === ' ')) {
       event.preventDefault();
-      this.handleInteraction(event);
+      this.handleInteraction(event); // Handle interaction logic
     }
   }
 
+  // Handle card interaction logic (toggle states, emit events)
   handleInteraction(event) {
     if (this.hasAttribute('expanded')) {
-      this.toggleAttribute('expanded');
+      this.toggleAttribute('expanded'); // Toggle the "expanded" attribute
     }
     if (this.hasAttribute('selected')) {
-      this.toggleAttribute('selected');
+      this.toggleAttribute('selected'); // Toggle the "selected" attribute
     }
 
+    // Dispatch a custom event with interaction details
     this.dispatchEvent(new CustomEvent('card-interaction', {
-      bubbles: true,
-      composed: true,
+      bubbles: true, // Allow event to bubble up through DOM
+      composed: true, // Allow event to cross shadow DOM boundaries
       detail: {
-        type: event.type,
-        expanded: this.hasAttribute('expanded'),
-        selected: this.hasAttribute('selected'),
-        timestamp: new Date()
+        type: event.type, // Type of interaction (click, keydown)
+        expanded: this.hasAttribute('expanded'), // Expanded state
+        selected: this.hasAttribute('selected'), // Selected state
+        timestamp: new Date() // Timestamp of the interaction
       }
     }));
   }
 
+  // Determine if the card should be interactive
   isInteractive() {
     return this.hasAttribute('interactive') || 
            this.hasAttribute('expanded') || 
            this.hasAttribute('selected');
   }
 
+  // Render the card's structure and styles
   render() {
-    const isInteractive = this.isInteractive();
-    const isDisabled = this.hasAttribute('disabled');
-    const orientation = this.getAttribute('orientation') || 'vertical';
+    const isInteractive = this.isInteractive(); // Check if the card is interactive
+    const isDisabled = this.hasAttribute('disabled'); // Check if the card is disabled
+    const orientation = this.getAttribute('orientation') || 'vertical'; // Default orientation
 
-    const style = document.createElement('style');
+    const style = document.createElement('style'); // Create style element
     style.textContent = `
       :host {
         display: block;
-        contain: content;
+        contain: content; /* Optimize rendering performance */
       }
 
       .card {
@@ -116,7 +129,6 @@ export class AccessibleCard extends HTMLElement {
         gap: 0.75rem;
         position: relative;
         transition: 0.2s ease;
-        transition-property: border-color, box-shadow, transform;
         min-height: 44px;
         min-width: 44px;
       }
@@ -125,72 +137,19 @@ export class AccessibleCard extends HTMLElement {
         cursor: pointer;
       }
 
-      .card[tabindex="0"]:not([aria-disabled="true"]):hover {
-        border-color: var(--card-hover-border-color, #2563eb);
-        box-shadow: var(--card-hover-shadow, 0 4px 6px rgba(0, 0, 0, 0.1));
-        transform: translateY(-1px);
-      }
-
-      .card[tabindex="0"]:not([aria-disabled="true"]):active {
-        transform: translateY(0);
-      }
-
-      .card:focus-visible {
-        outline: 2px solid var(--card-focus-color, #2563eb);
-        outline-offset: 2px;
-      }
-
-      .card[aria-selected="true"] {
-        border-color: var(--card-selected-border-color, #2563eb);
-        background: var(--card-selected-background, #eff6ff);
-      }
-
-      .card[aria-expanded="true"] {
-        border-color: var(--card-expanded-border-color, #2563eb);
-      }
-
       .card[aria-disabled="true"] {
-        opacity: 0.5;
-        cursor: not-allowed;
-        pointer-events: none;
+        opacity: 0.5; /* Visual feedback for disabled state */
+        pointer-events: none; /* Disable all interactions */
       }
 
       .card-title {
         margin: 0;
         font-size: var(--card-title-size, 1.125rem);
         font-weight: var(--card-title-weight, 600);
-        color: var(--card-title-color, inherit);
-        line-height: 1.4;
       }
 
       .card-content {
         margin: 0;
-        color: var(--card-content-color, inherit);
-        line-height: 1.5;
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        .card {
-          transition: none;
-        }
-      }
-
-      @media (prefers-contrast: more) {
-        .card {
-          border-width: 2px;
-        }
-        .card[aria-selected="true"] {
-          outline: 2px solid currentColor;
-        }
-      }
-
-      @media (forced-colors: active) {
-        .card {
-          border: 1px solid CanvasText;
-        }
-        .card[aria-selected="true"] {
-          border: 2px solid CanvasText;
-        }
       }
     `;
 
@@ -201,26 +160,27 @@ export class AccessibleCard extends HTMLElement {
         aria-labelledby="title-${this._uniqueId}"
         ${isInteractive ? 'tabindex="0"' : ''}
         ${isDisabled ? 'aria-disabled="true"' : ''}
-        ${this.hasAttribute('expanded') ? `aria-expanded="${this.hasAttribute('expanded')}"` : ''}
-        ${this.hasAttribute('selected') ? `aria-selected="${this.hasAttribute('selected')}"` : ''}
+        ${this.hasAttribute('expanded') ? `aria-expanded="true"` : ''}
+        ${this.hasAttribute('selected') ? `aria-selected="true"` : ''}
         ${orientation === 'horizontal' ? 'aria-orientation="horizontal"' : ''}
       >
         <h3 id="title-${this._uniqueId}" class="card-title">${this.getAttribute('title') || 'Título de la tarjeta'}</h3>
         <p class="card-content">${this.getAttribute('content') || 'Contenido de la tarjeta'}</p>
-      </section>`.trim();
+      </section>
+    `;
 
+    // Clear shadow DOM and append the new content
     this.shadowRoot.innerHTML = '';
-    this.shadowRoot.appendChild(style);
-    
-    const templateEl = document.createElement('template');
-    templateEl.innerHTML = template;
-    this.shadowRoot.appendChild(templateEl.content.cloneNode(true));
+    this.shadowRoot.appendChild(style); // Append styles
+    this.shadowRoot.innerHTML += template; // Append HTML structure
   }
 }
 
-// Definir el componente
+// Define the custom element if it hasn't already been defined
 export function defineAccessibleCard() {
   if (!customElements.get('accessible-card')) {
     customElements.define('accessible-card', AccessibleCard);
   }
 }
+
+
