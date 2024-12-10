@@ -4,7 +4,7 @@ Accessible Components is a project that provides a small design system built wit
 
 ## Features
 
-- Web Components built using [Lit](https://lit.dev/).
+- Native Web Components
 - Accessibility-first approach, compliant with WCAG 2.1 AA.
 - Integration with Storybook for documentation and interactive previews.
 - Unit testing with [Vitest](https://vitest.dev/) and accessibility validation using [axe-core](https://github.com/dequelabs/axe-core).
