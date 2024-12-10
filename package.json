@@ -17,12 +17,13 @@
     "@storybook/addon-a11y": "^8.4.6",
     "@storybook/addon-essentials": "^8.4.6",
     "@storybook/blocks": "^8.4.6",
+    "@storybook/builder-vite": "^8.0.0",
     "@storybook/test": "^8.4.6",
     "@storybook/web-components": "^8.4.6",
     "@storybook/web-components-vite": "^8.4.6",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/user-event": "^14.5.2",
-    "@storybook/builder-vite": "^8.0.0",
+    "axe-core": "^4.10.2",
     "happy-dom": "^15.11.7",
     "jest-axe": "^9.0.0",
     "jsdom": "^25.0.1",
@@ -30,8 +31,5 @@
     "storybook": "^8.4.6",
     "vite": "^6.0.1",
     "vitest": "^2.1.8"
-  },
-  "dependencies": {
-    "axe-core": "^4.10.2"
   }
 }
