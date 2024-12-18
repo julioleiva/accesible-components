@@ -18,6 +18,8 @@ Achieving accessibility is a team effort involving multiple roles across the dev
 
 ## The Accessibility Hexagon
 
+![Hexagon Accessibility](../hexagon.png "Hexagon Accessibility")
+
 A visual representation of the interconnected elements necessary for achieving comprehensive accessibility in digital products:
 
 ## 1. **Semantic HTML**
