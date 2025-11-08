@@ -39,7 +39,10 @@ function App() {
         <div>
           <h3>Documentation</h3>
           <p>View the Storybook documentation for detailed component usage and examples.</p>
-          <AccessibleButton label="Open Storybook" onClick={() => console.log('Open Storybook')} />
+          <AccessibleButton
+            label="Open Storybook"
+            onClick={() => window.open('http://localhost:6006', '_blank')}
+          />
         </div>
       ),
     },
@@ -51,7 +54,7 @@ function App() {
 
       <AccessibleCard
         title="Welcome"
-        content="This library has been successfully migrated to React!"
+        content="This library has been successfully migrated from Web Components to React in this branch!"
         interactive
       />
 
