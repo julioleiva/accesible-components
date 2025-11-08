@@ -1,1 +1,2 @@
-export * from './AccessibleTabs';
+export { AccessibleTabs } from './AccessibleTabs';
+export { default } from './AccessibleTabs';

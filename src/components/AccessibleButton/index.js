@@ -1,1 +1,2 @@
-export * from './AccessibleButton';
+export { AccessibleButton } from './AccessibleButton';
+export { default } from './AccessibleButton';

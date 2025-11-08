@@ -1,0 +1,67 @@
+.accessible-button {
+  background: #0078d4;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Alto contraste */
+@media (prefers-contrast: more) {
+  .accessible-button {
+    border: 2px solid #000;
+    outline: 2px solid #fff;
+  }
+}
+
+/* Reducción de movimiento */
+@media (prefers-reduced-motion: reduce) {
+  .accessible-button {
+    transition: none;
+  }
+}
+
+/* Estados interactivos */
+.accessible-button:hover:not([disabled]) {
+  background: #106ebe;
+}
+
+.accessible-button:focus {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(0, 120, 212, 0.4);
+}
+
+.accessible-button:active:not([disabled]) {
+  background: #005a9e;
+}
+
+/* Estado deshabilitado */
+.accessible-button[disabled] {
+  background: #f3f2f1;
+  color: #a19f9d;
+  cursor: not-allowed;
+}
+
+/* Soporte para modo oscuro */
+@media (prefers-color-scheme: dark) {
+  .accessible-button {
+    background: #2b88d8;
+  }
+  .accessible-button:hover:not([disabled]) {
+    background: #1b559b;
+  }
+  .accessible-button:active:not([disabled]) {
+    background: #0f3058;
+  }
+  .accessible-button[disabled] {
+    background: #3b3a39;
+    color: #605e5c;
+  }
+}

@@ -1,1 +1,2 @@
-export * from './AccessibleAlert'
+export { AccessibleAlert } from './AccessibleAlert';
+export { default } from './AccessibleAlert';

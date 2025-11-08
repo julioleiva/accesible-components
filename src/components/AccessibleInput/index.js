@@ -1,1 +1,2 @@
-export * from './AccessibleInput';
+export { AccessibleInput } from './AccessibleInput';
+export { default } from './AccessibleInput';
