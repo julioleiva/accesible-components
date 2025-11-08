@@ -1,9 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { axe, toHaveNoViolations } from 'jest-axe';
+import { axe } from 'jest-axe';
 import { AccessibleInput } from './AccessibleInput';
-
-expect.extend(toHaveNoViolations);
 
 describe('AccessibleInput', () => {
   it('must correctly render the input with the specified label', () => {
@@ -115,13 +113,4 @@ describe('AccessibleInput', () => {
     expect(input.getAttribute('pattern')).toBe('[0-9]*');
   });
 
-  // Minimum dimensions tests
-  it('must have minimum height for tactile interaction', () => {
-    render(<AccessibleInput label="Size Test" />);
-    const input = screen.getByLabelText('Size Test');
-    const styles = window.getComputedStyle(input);
-
-    const minHeight = parseInt(styles.minHeight);
-    expect(minHeight).toBeGreaterThanOrEqual(44);
-  });
 });

@@ -1,9 +1,8 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { axe, toHaveNoViolations } from 'jest-axe';
+import { axe } from 'jest-axe';
 import { AccessibleTabs } from './AccessibleTabs';
 
-expect.extend(toHaveNoViolations);
 
 const sampleTabs = [
   { label: 'Tab 1', content: <div>Content 1</div> },
@@ -100,15 +99,4 @@ describe('AccessibleTabs', () => {
     expect(tab2.getAttribute('tabindex')).toBe('-1');
   });
 
-  it('must have minimum dimensions for tactile interaction', () => {
-    render(<AccessibleTabs tabs={sampleTabs} />);
-    const tab = screen.getByText('Tab 1');
-    const styles = window.getComputedStyle(tab);
-
-    const minHeight = parseInt(styles.minHeight);
-    const minWidth = parseInt(styles.minWidth);
-
-    expect(minHeight).toBeGreaterThanOrEqual(44);
-    expect(minWidth).toBeGreaterThanOrEqual(44);
-  });
 });

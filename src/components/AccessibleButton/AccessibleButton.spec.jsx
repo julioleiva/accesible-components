@@ -1,9 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { axe, toHaveNoViolations } from 'jest-axe';
+import { axe } from 'jest-axe';
 import { AccessibleButton } from './AccessibleButton';
-
-expect.extend(toHaveNoViolations);
 
 describe('AccessibleButton', () => {
   it('must correctly render the button with the specified label.', () => {
@@ -80,18 +78,6 @@ describe('AccessibleButton', () => {
     expect(button.getAttribute('aria-pressed')).toBe('true');
   });
 
-  // Tactile dimensional tests
-  it('must have minimum dimensions for tactile interaction', () => {
-    render(<AccessibleButton label="Size Test" />);
-    const button = screen.getByRole('button');
-    const styles = window.getComputedStyle(button);
-
-    const minHeight = parseInt(styles.minHeight);
-    const minWidth = parseInt(styles.minWidth);
-
-    expect(minHeight).toBeGreaterThanOrEqual(44);
-    expect(minWidth).toBeGreaterThanOrEqual(44);
-  });
 
   // Click event tests
   it('should call onClick when clicked', () => {

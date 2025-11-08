@@ -1,9 +1,8 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { axe, toHaveNoViolations } from 'jest-axe';
+import { axe } from 'jest-axe';
 import { AccessibleAlert } from './AccessibleAlert';
 
-expect.extend(toHaveNoViolations);
 
 describe('AccessibleAlert', () => {
   it('must render with default message', () => {

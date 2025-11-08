@@ -56,7 +56,6 @@ export const AccessibleInput = ({
     <div className={`input-wrapper ${className}`}>
       <label
         htmlFor={uniqueId}
-        aria-required={required}
       >
         {label}
         {required && <span className="required" aria-hidden="true">*</span>}
@@ -68,6 +67,7 @@ export const AccessibleInput = ({
         value={value}
         aria-invalid={!!error}
         aria-describedby={error ? `error-${uniqueId}` : undefined}
+        aria-required={required || undefined}
         required={required}
         disabled={disabled}
         readOnly={readonly}

@@ -1,14 +1,14 @@
 # Accessible Components
 
-Accessible Components is a project that provides a small design system built with Web Components, focusing on accessibility and compliance with WCAG 2.1 AA guidelines. The project emphasizes color contrast, keyboard navigation, responsive design, and other key accessibility principles.
+Accessible Components is a React component library focusing on accessibility and compliance with WCAG 2.1 AA guidelines. The project emphasizes color contrast, keyboard navigation, responsive design, and other key accessibility principles.
 
 ## Features
 
-- Native Web Components
-- Accessibility-first approach, compliant with WCAG 2.1 AA.
-- Integration with Storybook for documentation and interactive previews.
-- Unit testing with [Vitest](https://vitest.dev/) and accessibility validation using [axe-core](https://github.com/dequelabs/axe-core).
-- Live development and build tools powered by [Vite](https://vitejs.dev/).
+- **React Components**: Built with React 19 and modern hooks
+- **Accessibility-first approach**: Compliant with WCAG 2.1 AA
+- **Storybook Integration**: Interactive documentation and component previews
+- **Comprehensive Testing**: Unit testing with [Vitest](https://vitest.dev/), [React Testing Library](https://testing-library.com/react), and accessibility validation using [axe-core](https://github.com/dequelabs/axe-core)
+- **Modern Build Tools**: Powered by [Vite](https://vitejs.dev/) with React Fast Refresh
 
 ## Requirements
 
@@ -36,7 +36,7 @@ Accessible Components is a project that provides a small design system built wit
    npm run dev
    ```
 
-4. Open the application in your browser. By default, it will be available at `http://localhost:3000`.
+4. Open the application in your browser. By default, it will be available at `http://localhost:5173`.
 
 ## Scripts
 
@@ -57,7 +57,7 @@ The project uses [jest-axe](https://github.com/nickcolley/jest-axe) and [axe-cor
 npm run test
 ```
 
-Test cases are located in the `src/tests` directory and focus on ensuring components are accessible by default.
+Test cases are located alongside each component (`*.spec.jsx` files) and focus on ensuring components are accessible by default.
 
 ## Accessibility Highlights
 
@@ -72,19 +72,32 @@ Test cases are located in the `src/tests` directory and focus on ensuring compon
 - **Storybook**: A powerful tool for building and documenting UI components.
 - **Vitest**: A blazing-fast unit testing framework with first-class TypeScript support.
 
+## Available Components
+
+All components maintain full keyboard navigation, ARIA attributes, and screen reader support:
+
+- **AccessibleButton**: Button component with full ARIA support and states
+- **AccessibleInput**: Form input with validation and error handling
+- **AccessibleCard**: Interactive card component with expandable/selectable states
+- **AccessibleAlert**: Alert/notification component with auto-dismiss
+- **AccessibleTabs**: Tab navigation with keyboard support
+
 ## Dependencies
 
 ### Runtime Dependencies
 
-- **`lit`**: Lightweight library for building fast, responsive Web Components.
+- **`react`**: React library (v19)
+- **`react-dom`**: React DOM rendering
 
 ### Development Dependencies
 
-- **`axe-core`**: Used for accessibility testing. It should be moved to `devDependencies` as it is not required at runtime.
-- **`storybook`**: Storybook and its addons for UI development and documentation.
-- **`vitest`**: Unit testing framework.
-- **`@storybook/addon-a11y`**: Accessibility testing addon for Storybook.
-- **`@testing-library/dom`**: DOM testing utilities.
+- **`@vitejs/plugin-react`**: Vite plugin for React with Fast Refresh
+- **`@storybook/react-vite`**: Storybook for React with Vite builder
+- **`@testing-library/react`**: React testing utilities
+- **`@testing-library/jest-dom`**: Custom matchers for DOM testing
+- **`vitest`**: Unit testing framework
+- **`jest-axe`**: Accessibility testing with axe-core
+- **`@storybook/addon-a11y`**: Accessibility testing addon for Storybook
 
 ## Contributing
 
